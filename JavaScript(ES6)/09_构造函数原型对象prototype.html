@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // function Star(uname){//构造函数其首字母要大写
+    //     this.uname = uname;
+    //     this.sing = function(){
+    //     }
+    // }
+    // var kun = new Star('KUN');
+    // var ikun = new Star('AK');
+    // //如果把方法这样this.sing = function(){}
+    // // 写在构造函数中 那么 每一个实例对象都会再开辟一个内存空间来存放方法 浪费空间
+    // kun.sing();
+    // ikun.sing();
+
+
+
+    function Star(uname){//构造函数其首字母要大写
+        this.uname = uname;
+    }
+    console.log(Star);//打印可以看到Star上面有prototype原型对象
+    //一般情况下 我们的公共属性定义到构造函数里面
+    //公共方法放到原型对象上 解决内存问题
+    //对象都会有一个属性__proto__ 指向构造函数的prototype原型对象
+    //之所以我们对象可以使用构造函数prototype原型对象的属性和方法
+    //就是因为对象有__proto__对象原型的存在
+    Star.prototype.sing = function(){};
+    var kun = new Star('KUN');
+    var ikun = new Star('AK');
+    console.log(kun); //对象身上系统自己添加一个__prot__对象原型指向构造函数的原型对象
+    console.log(kun.__proto__ === Star.prototype);//打印true
+    kun.sing();
+    ikun.sing();
+    //方法的查找规则：首先看对象kun上是否有sing这个方法
+    //如果没有，因为对象有__proto__的存在 就去构造函数原型对象prototype身上找sing这个方法
+</script>
+</body>
+</html>
