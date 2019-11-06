@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // function Star(uname){//构造函数其首字母要大写
+    //     this.uname = uname;
+    // }
+    // Star.prototype.sing = function(){};
+    // var kun = new Star('KUN');
+    // //打印可以看到prototype和__proto都有constructor构造函数 这个构造函数是指回构造函数Star本身
+    // console.log(Star.prototype);
+    // console.log(kun.__proto__);
+
+
+    function Star(uname){//构造函数其首字母要大写
+        this.uname = uname;
+    }
+    //很多情况下我们需要手动的利用constructor属性指回原来的构造函数
+    Star.prototype ={
+        constructor: Star,//添加这个就可以指向原来的构造函数了
+        sing: function () {},
+        move: function () {},
+    };
+    var kun = new Star('KUN');
+    //打印可以看到prototype和__proto都有constructor构造函数 这个构造函数是指回构造函数Star本身
+    console.log(Star.prototype);
+    console.log(kun.__proto__);
+</script>
+</body>
+</html>
