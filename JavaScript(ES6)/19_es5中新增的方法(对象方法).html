@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES5中新增的方法</title>
+</head>
+<body>
+Object.defindProperty()定义对象中新属性或修改原有的属性
+Object.defindProperty(obj,prop,descriptor);这三个参数都是必需的
+obj:目标对象 prop：需定义或修改的属性的名字 descriptor: 目标属性所拥有的特性
+
+<script>
+    // 1.以前的方法
+    //obj.num = 1000;
+    Object.defindProperty(obj,'num',{
+        value:1000
+    });
+    Object.defindProperty(obj,'id',{
+        //writable:false不允许修改这个属性值
+        writable:false,//默认为false
+    });
+    Object.defindProperty(obj,'address',{
+        value:'中国山东',
+        writable:false,
+        enumerable:false,//false不允许被遍历 默认为false
+        configurable:false,//false不允许这个属性被删除 默认为false
+    });
+    console.log(Object.keys(obj));
+    delete obj.address; //删除不成功 因为上面configurable:false
+</script>
+</body>
+</html>
