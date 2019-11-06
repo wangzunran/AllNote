@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //1.父构造函数
+    function Father(uname){
+        //this指向父构造函数的对象实例
+        this.uname = uname;
+    }
+    Father.prototype.money = function () {
+        console.log(100);
+    };
+    //1.子构造函数
+    function Son(uname){
+        //this指向子构造函数的对象实例
+        Father.call(this,uname)
+    }
+    Son.prototype = new Father();
+    Son.prototype.constructor = Son;
+    var son = new Son('KUN');
+    console.log(son);
+</script>
+</body>
+</html>
