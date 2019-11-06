@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        //3.在es6之前利用构造函数创建对象
+        function Star(uname){//构造函数其首字母要大写
+            this.uname = uname;
+            this.sing = function(){
+            }
+        }
+        var kun = new Star('KUN');
+        // 1.实例成员就是构造函数内部通过this添加的成员 如uname sing
+        // 实例成员只能通过实例化的对象来访问 kun.uname  构造函数本身不可以直接访问
+
+        //2.静态成员 在构造函数本身添加的成员 如 sex
+        Star.sex = '男 ';
+        //静态成员只能通过构造函数来访问
+    </script>
+</body>
+</html>
