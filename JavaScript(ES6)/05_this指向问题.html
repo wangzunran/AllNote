@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>点击</button>
+<script>
+    var that;
+    class Star{
+         //constructor里面的this指向的是 创建的实例对象
+         constructor(uname){
+             console.log(this);
+             that = this;//把this传给that保存 当kun实例调用他的时候  this指向kun
+             this.uname = uname;
+             this.btn = document.querySelector('button');
+             this.btn.onclick = this.sing;
+         }
+         sing() {
+             //调用的时候才指向他
+             //这里的this是上面构造函数里面的btn调用了 所以this指向btn这个按钮
+             //因为btn这个按钮调用了这个方法
+             console.log(this);
+             console.log(this.uname);//这里打印的是undefined  因为btn按钮没有uname这个属性
+             console.log(that.uname);//这里可以打印KUN 因为在构造函数中 构造函数的this传给了that that是在全局定义的 所以都可以调用
+         }
+         //方法
+         dance(){
+             //函数里面的this是谁调用 this就指向谁
+             console.log(this);
+         }
+     }
+    var kun = new Star('KUN');
+    console.log(that);
+
+</script>
+</body>
+</html>
