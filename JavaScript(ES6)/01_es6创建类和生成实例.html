@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 初级理解
+        // //1.创建类class 创建一个明星类
+        // class Star {
+        //     //constructor()方法是类的构造方法(默认方法) 用于传递参数，返回实例对象，
+        //     // 通过new命令生成对象实例时，自动调用该方法，
+        //     // 如果没有显示定义 类内部会自动创建一个constructor()
+        //     constructor(uname){
+        //         this.uname = uname//这里的this指向创建的实例 这里的实例就是 kun这个对象
+        //     }
+        // }
+        // //2.利用类创建对象 new  利用类生成了一个实例
+        // var kun = new Star('KUN');
+        // console.log(kun.uname);
+
+
+        // 深入
+        class Star {
+            constructor(uname,age){
+                this.uname = uname;
+                this.age = age;
+            }
+        }
+        var kun = new Star('KUN',18);
+        var zxy = new Star('张学友',20);
+        console.log(kun);
+        console.log(zxy);
+        console.log(kun.uname);
+        console.log(zxy.uname);
+    </script>
+</body>
+</html>
