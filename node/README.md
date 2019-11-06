@@ -1,4 +1,5 @@
 # Node.js第一天
+# 打开命令： node 文件名
 ## 上午总结
 - Node.js是什么
     + JavaScript运行时
