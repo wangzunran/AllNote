@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+注意：类里面的共有属性和方法一定要加this使用  this代表是谁 谁的属性 实例化对象的属性
+<script>
+    //父类中有加法方法
+    class Father {
+        constructor(x,y){
+            this.x = x;
+            this.y = y;
+        }
+        sum() {
+            console.log( this.x + this.y )
+        }
+    }
+    //子类继承父类加法方法 同时 扩展减法方法
+    class Son extends Father{
+        constructor(x, y) {
+            //super必须在子类this的前面调用
+            super(x ,y);//利用super调用父类的构造函数
+            //定义子类独有的属性
+            this.x = x;
+            this.y = y;
+        }
+        subtract() {
+            console.log(this.x -this.y )
+        }
+    }
+    var son = new Son(5,3);
+    son.subtract();
+    son.sum();
+
+</script>
+</body>
+</html>
