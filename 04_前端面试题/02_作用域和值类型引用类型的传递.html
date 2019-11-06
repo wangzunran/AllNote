@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域和值类型引用类型的传递</title>
+</head>
+<body>
+<script>
+    // //题目
+    // function Person(name, age, salary){
+    //     this.name = name;
+    //     this.age = age;
+    //     this.salary = salary;
+    // }
+    // function f(person) {
+    //     person.name = 'ls';
+    //     person = new Person('aa', 18 , 10)
+    // }
+    // var p = new Person('zs', 18, 1000);
+    // console.log(p.name);//这里打印zs
+    // f(p);
+    // console.log(p.name)//这里打印ls
+
+
+
+
+    //分析过程
+    function Person(name, age, salary){//首字母大写 说明是构造函数
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+    }
+    //普通函数f
+    function f(person) {//f(p)  这里的person相当于 var person =p ;把p中存的地址1传给person   var person变量进行提升
+        person.name = 'ls';//改变地址1中存储的new Person('zs', 18, 1000)  zs变为ls
+        person = new Person('aa', 18 , 10);//开辟一个新的地址2存储new Person('aa', 18 , 10)  再把person指向新的地址2
+    }
+    var p = new Person('zs', 18, 1000);//创建一个对象(放在栈内存) 对象中存地址1   在堆内存中开辟一个空间存放new Person('zs', 18, 1000)和地址1  p根据存储 地址1指向堆内存中的地址1空间 获取数据
+    console.log(p.name);//这里打印zs
+    f(p);
+    console.log(p.name)//这里打印ls  这里的p指向的地址1中的数据已经改变
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex实现元素水平垂直居中（新版本与老版本）</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding:0;
+    }
+    /*以前的方案1*/
+    /*#wrap{*/
+        /*width: 500px;*/
+        /*height: 500px;*/
+        /*background: grey;*/
+        /*position: relative;*/
+    /*}*/
+    /*#wrap .box{*/
+        /*width: 200px;*/
+        /*height: 200px;*/
+        /*background: pink;*/
+
+        /*position: absolute;*/
+        /*top: 0;*/
+        /*left: 0;*/
+        /*right: 0;*/
+        /*bottom: 0;*/
+        /*margin: auto;*/
+    /*}*/
+
+    /*!*以前的方案二*!*/
+    /*#wrap{*/
+        /*width: 500px;*/
+        /*height: 500px;*/
+        /*background: grey;*/
+        /*position: relative;*/
+    /*}*/
+    /*#wrap .box{*/
+        /*width: 200px;*/
+        /*height: 200px;*/
+        /*background: pink;*/
+        /*position: absolute;*/
+        /*top: 50%;*/
+        /*left: 50%;*/
+        /*!*margin-left: -100px;*!*/
+        /*!*margin-top: -100px;*!*/
+        /*transform: translate(-50% -50%);*/
+    /*}*/
+
+
+    /*以前的方案二*/
+    #wrap{
+        width: 500px;
+        height: 500px;
+        background: grey;
+        /*!*这个是新版本*!*/
+        /*display: flex;*/
+        /*justify-content: center;*/
+        /*justify-items: center;*/
+
+        /*这个是老版本*/
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+    }
+    #wrap .box{
+        width: 200px;
+        height: 200px;
+        background: pink;
+    }
+</style>
+<body>
+<div id="wrap">
+    <div class="box"></div>
+</div>
+</body>
+</html>

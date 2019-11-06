@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装函数进行字符串驼峰命名的转换</title>
+</head>
+<body>
+<script>
+    // //题目 已知有字符串foo='get-element-by-id',写一个function将其转换成驼峰命名
+    // //自定义函数
+    // function toString(foo){
+    //     var arr = foo.split('-');
+    //     for(var i = 1; i < foo.length;i++){
+    //         arr[i] = arr[i].charAt(0).toUpperCase()+arr[i].substr(1,arr[i].length-1)
+    //     }
+    //     //根据某个字符将数组转换成字符串
+    //     return arr.join('');
+    // }
+    // console.log(toString('get-element-by-id'));
+
+
+    //分析过程
+    //自定义函数
+    function toString(foo){//var foo = 'get-element-by-id'
+        //split()根据某个字符进行切割
+        var arr = foo.split('-');//把foo字符串切割成数组 [get,element,by,id]
+        for(var i = 1; i < arr.length; i++){//i=1 因为数组arr[0] = 'get' 不需要首字母大写
+            //charAt()根据字符串索引值拿到字符
+            //substr(起始索引值，截止索引值)  截取字符串
+            //arr[i].charAt(0) 选中arr[i]字符串的第0个字符 toUpperCase()让它转换为大写
+            //+arr[i].substr(1,arr[i].length-1) 拼接字符串arr[i]除首字母的后面字符
+            arr[i] = arr[i].charAt(0).toUpperCase()+arr[i].substr(1,arr[i].length-1)
+        }
+        console.log(arr);//这里打印arr  结果[get,Element,By,Id]
+        //根据某个字符将数组转换成字符串
+        return arr.join('');
+    }
+    console.log(toString('get-element-by-id'));
+</script>
+</body>
+</html>
