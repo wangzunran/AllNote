@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES5中新增的方法</title>
+</head>
+<body>
+迭代(遍历)方法：forEach(),map(),filter(),some(),every()
+<script>
+    // //forEach 迭代（遍历）数组
+    // var arr = [1,2,3];
+    // var sum = 0;
+    // arr.forEach(function (value,index,array) {
+    //     console.log('每个数组元素' + value);
+    //     console.log('每个数组元素的索引号' + index);
+    //     console.log('数组本身' + array);
+    //     sum += value;
+    // })
+    
+    
+    // //filter()方法创建一个新的数组 新数组中的元素是通过检查指定数组中符合条件的所有元素 主要用于筛选数组
+    // var arr = [12,8,22,88];
+    // // arr.filter(function (value,index,array) {});
+    // var newArr = arr.filter(function (value,index) {
+    //     // return value >= 20; //返回的数组放在newArr里面
+    //     return value % 2 ===0;//求偶数
+    // })
+    
+    //some 查找数组中是否有满足条件的元素 返回的是布尔值
+    var arr = [10,20,30];
+    // arr.some(function (value, index, array) {})
+    var flag = arr.some(function (value) {
+        return value >= 20; //注意 如果找到了第一个满足条件的元素 就不再继续循环了
+    });
+    console.log(flag)//打印输出true
+
+
+</script>
+</body>
+</html>
