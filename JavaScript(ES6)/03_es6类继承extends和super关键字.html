@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    继承中的属性或者方法查找原则：就近原则
+
+    <script>
+        // class Father {
+        //     money() {
+        //         console.log(100)
+        //     }
+        // }
+        //extends可以让我们的子类继承父类的属性和方法
+        // class Son extends Father{
+        //
+        // }
+        // var son = new Son();
+        // son.money();
+
+
+        //两个不同的类 this指向问题要清楚
+        class Father {
+            constructor(x,y){
+                this.x = x;
+                this.y = y;
+            }
+            sum(){
+                console.log(this.x + this.y)//这里的this指向的是本类(父类)的constructor里面的数据
+            }
+            say(){
+                return '我是爸爸';
+            }
+        }
+        class Son extends Father{
+            // 当继承的时候这种写法是错误的
+            // constructor(x,y){
+            //     this.x = x;
+            //     this.y = y;
+            // }
+            constructor(x,y){
+                //super关键字用于访问和调用对象父类上的函数，
+                // 可以调用父类的构造函数，也可以调用父类的普通函数
+                super(x,y);//调用了父类中的构造函数
+            }
+            say(){
+                console.log('我是儿子');
+                //console.log(super.say()+'的儿子');//用super调用父类的普通函数
+            }
+        }
+        var son = new Son(1,2);//这里的1,2是传给本类(这里是子类Son)的构造函数，构造函数里面的super就是把本类里面传过来的值传给父类构造函数
+        var son1 = new Son(11,22);
+        son.sum();
+        son1.sum();
+
+        son.say();//调用的是本类的say 就近原则 子类中没有就去上一级父类中去找
+    </script>
+</body>
+</html>
