@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        class Star {
+            constructor(uname,age){
+                this.uname = uname;
+                this.age = age;
+            }
+            //es6中 类里面所有的函数不需要写function
+            sing(song){
+                // console.log('我唱歌')
+                console.log(this.uname + song)
+
+            }
+        }
+        var kun = new Star('KUN',18);
+        var zxy = new Star('张学友',20);
+        kun.sing('没有意外');
+        zxy.sing('李香兰');
+    </script>
+</body>
+</html>
