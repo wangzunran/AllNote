@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    arr = ['red','green','blue','yellow'];
+    // arr.forEach(function (value) {
+    //     if (value === 'green') {
+    //         console.log('找到了该元素');
+    //         return true;//在forEach(还有filter)里面return不会终止迭代
+    //     }
+    // })
+
+    arr.some(function (value) {
+        if (value === 'green') {
+            console.log('找到了该元素');
+            return true;//在some里面遇到return true 就会终止遍历 迭代效率更高
+        }
+    })
+</script>
+</body>
+</html>
