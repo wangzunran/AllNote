@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS面向对象 动态添加tab标签</title>
+</head>
+<body>
+    <!--思考：第一步 抽象对象：Tab对象-->
+    <!--1.该对象具有切换功能-->
+    <!--2.该对象具有添加功能-->
+    <!--3.该对象具有删除功能-->
+    <!--4.该对象具有修改功能-->
+    <h4>JS面向对象 动态添加标签页</h4>
+    <div class="tabsbox" id="tab">
+        <!--tab标签-->
+        <nav class="firstnav">
+            <ul>
+                <li class="licative"><span>测试1</span><span class="iconfont icon-guanbi"></span></li>
+                <li><span>测试2</span><span class="iconfont icon-guanbi"></span></li>
+                <li><span>测试3</span><span class="iconfont icon-guanbi"></span></li>
+            </ul>
+            <div class="tabadd">
+                <span>+</span>
+            </div>
+        </nav>
+        <!--tab内容-->
+        <div class="tabscon">
+            <section class="conactive">测试1</section>
+            <section>测试2</section>
+            <section>测试3</section>
+        </div>
+    </div>
+<script>
+    var that;//用来存构造函数里面的this 全局变量
+    class Tab {
+        constructor(id){
+            //获取元素
+            that = this;
+            this.main = document.querySelector(id);
+            this.add = this.main.querySelector('.tabadd');
+            this.ul = this.main.querySelector('.firstnav ul:first-child');//li的父元素
+            this.fsection = this.main.querySelector('.tabscon');  //section的父元素
+            this.init();
+        }
+        //初始化 让相关的元素绑定事件
+        init(){
+            this.updateNode();//获取最新的元素
+            //初始化添加功能
+            this.add.onclick = this.addTab;
+            //初始化切换功能
+            for(var i = 0; i < this.lis.length; i++){
+                this.lis[i].index = i;
+                // this.lis[i].onclick  = function(){
+                //     console.log(this.index);
+                // }
+                this.lis[i].onclick  = this.toggleTab;//this.toggleTab不要写成this.toggleTab() 因为我们需要点击后再调用 直接加()就直接执行这个函数了
+                this.remove[i].onclick = this.removeTab;//每一个小x都要绑定点击删除事件
+                this.spans[i].ondbclick = this.ediTab;
+                this.sections[i].ondbclick = this.ediTab;
+            }
+        }
+        //不写在构造函数里面是由于添加的li和section也需要被获取 这样才可以来操作其他功能
+        //我们动态添加元素 需要重新获取对应的元素
+        updateNode(){
+            this.lis = this.main.querySelectorAll('li');
+            this.sections = this.main.querySelectorAll('section');
+            //如果把this.remove放在构造函数里面获取 那么只能获取原来的this.remove
+            // 如果添加了一个li 它的x就获取不到 那么初始化函数init()里面的this.remove就没有办法绑定onclick事件
+            this.remove = this.main.querySelector('.firstnav .icon-guanbi');
+            this.spans = this.main.querySelectorAll('.firstnav li span:first-child');
+        }
+        //1.切换功能 点击tab栏可以切换效果
+        toggleTab(){//这个里面的this指向它的调用者lis[i]
+            //console.log(this.index);//查看是否能够拿到索引号
+            that.clearClass();//这里用that调用的clearClass函数
+            this.className = 'licative';
+            that.sections[this.index].className = 'conactive';//that里面存的构造函数里面的this
+
+        }
+        //封装一个清除所有li和section的类的方法
+        clearClass(){//上面用that掉用这个函数 所以这里的this指向that 没有问题
+            for(var i = 0;i < this.lis.length;i++){
+                this.lis[i].className = '';
+                this.sections[i].className = '';
+            }
+        }
+        //2.添加功能 点击加号，可以添加tab项和内容项
+        //以前的做法：动态创建元素createElement，但是元素里面内容较多 需要innerHTML赋值，再appendChild追加到父元素里面
+        //现在高级做法：利用insertAdjacentHTML()可以直接把字符串格式元素添加到父元素中
+        //appendChild不支持追加字符串的子元素，insertAdjacentHTML支持
+        addTab(){
+            that.clearClass();//先清除所有 再添加自己
+            var random = Math.random();
+            //(1)创建新的选项卡li和新的内容section
+            var li = '<li class="licative"><span>新选项卡</span><span class="iconfont icon-guanbi"></span></li>';
+            var section = '<section class="conactive">测试' + random + '</section>';
+            //(2)把创建好的两个元素追加到对应的父元素中
+            that.ul.insertAdjacentHTML('beforeend',li);
+            that.fsection.insertAdjacentHTML('beforeend',section);
+            //注意：element.insertAdjacentHTML(position,text);
+            //'beforebegin':元素自身的前面
+            //'afterbegin'：插入元素内部的第一个子节点之前
+            //'beforeend':插入元素内部的最后一个子节点之后  有点类似于appendChild追加到父元素的最后面
+            //'afterend'：元素自身的后面
+            //text:是要被解析为html或xml 并插入到DOM树中的字符串
+            that.init();
+        }
+
+        //3.删除功能 点击X号，可以删除当前的tab项和内容项
+        //x是没有索引号的 但是它的父亲有，并且正是我们想要的索引号
+        //核心思路：点击x号 可以删除这个索引号对应的li和section
+        removeTab(e){
+            e.stopPropagation();//阻止冒泡 阻止触发父亲li的点击切换事件或者父亲其他操作
+            var index = this.parentNode.index;//拿到父亲的索引号
+            that.lis[index].remove();//remove方法可以直接删除指定的元素
+            that.sections[index].remove();
+            that.init();
+            //当我们删除的不是选中状态的li的时候，原来的选中状态保持不变4
+            if(document.querySelector('.liactive')) return;
+            //当我们删除了选中状态的这个li的时候
+            if(index === 0 && that.lis.length > 1){//如果删除第一个li并且后面还有li
+                // index = that.lis.length-1;//为了选中li最后一个元素 需要验证才知这个是否正确
+                index = index++;//让他后一个li处于选定状态
+            }else {//删除除了第一个li的任意li
+                // 让他的前一个li处于选定状态
+                index--;
+            }
+            //手动调用我们的点击事件 不需要鼠标触发
+            // 由于我们上面已经做了点击它处于选中状态 所以我们让它自动点击一下
+            // that.lis[index].click(); 这里没有考虑当点击最后一个x的情况 index是-1
+            that.lis[index] && that.lis[index].click();// &&符号前面为真执行后面的操作 前面为假不需要执行后面的操作
+        }
+
+        //4.修改功能 双击tab项文字或者内容项文字 可以修改里面的文字
+        //双击事件：ondblclick
+        //如果双击文字 会默认选定文字 此时需要双击禁止选中文字
+        //window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+        //核心思路：双击文字的时候 在里面生成一个文本框 当失去焦点或者按下回车然后把文本输入的值给原来的元素即可 同时文本框消失
+        ediTab(){
+            var str = this.innerHTML;
+            //双击禁止选定文字
+            window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+            this.innerHTML ='<input text=""/>';
+            var input = this.children[0];//拿到文本框input  查询得input是span的第一个孩子
+            input.value = str;//再把原先的文字赋给文本框的值
+            input.select();//让文本框里面的文字处于选定状态
+            //当我们离开文本框就把文本框里面的值给span
+            input.onblur = function(){
+                this.parentNode.innerHTML = this.value;//input调用 所以这里this是指文本框 把文本框的值给他的父亲span
+            };
+            //当按下回车也可以把文本框里面的值给span
+            input.onkeyup = function(e){//键盘事件有一个事件对象e 里面有个keycode 可以知道按那个键
+                if(e.keyCode === 13){
+                    //手动调用表单失去焦点事件 不需要鼠标离开操作
+                    this.blur();
+                }
+            }
+        }
+
+    }
+    var tab = new Tab('#tab');
+
+</script>
+</body>
+</html>
