@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--
+     当浏览器收到HTML响应内容之后，就会开始从上到下依次解析
+     当在解析的过程中，如果发现：
+     link
+     script
+     img
+     iframe
+     video
+     audio
+     等具有src或者href(link) a链接不算 那是需要用户自己去点击的时候才去发送请求
+     属性标签(具有外链的资源)的时候 浏览器会自动对这些静态资源发送请求
+    我们为了方便的统一处理这些静态资源 所以我们约定把所有的静态资源存放在public中 再在服务端把public目录开放出去
+    -->
+    <!--
+        注意 这个时候在服务端中 文件中的路径就不要去写相对路径了
+        所有的资源都是通过url标识来获取的
+        我的服务器开放了 /public/ 目录
+        所以这里的请求路径都写成：/public/某某某
+        /在这里就是url根路径的意思
+        浏览器在真正发请求的时候 会把 服务器ip地址+端口号拼接在 / 前面 如：http://127.0.0.1:3000/public/lib/jQuery.js
+
+        不要再想文件路径了 把所有的路径都想象成url地址
+     -->
+    <link rel="stylesheet" href="/public/lib/jQuery.js">
+</head>
+<body>
+    <div class="header">
+        <h1>header <small>Subtext for heder</small></h1>
+        <a href="/post" class="btn btn-success">发表留言</a>
+    </div>
+    <div class="comments">
+        <ul class="list-group">
+            {{each comments}}
+            <li class="list-group-item">{{$value.name}}说：{{$value.message}} <span class="pull-right">{{$value.dataTime}}</span></li>
+            {{/each}}
+        </ul>
+    </div>
+</body>
+</html>
